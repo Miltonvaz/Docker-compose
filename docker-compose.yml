@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  # Base de datos
+  db_milton:
+    image: postgres:16
+    container_name: db_milton
+    environment:
+      POSTGRES_USER: postgrest
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: Milton_Vazquez
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./milton_vazquez.sql:/docker-entrypoint-initdb.d/milton_vazquez.sql
+    ports:
+      - "5432:5432"
+
+  # Backend
+  backend_milton:
+    build: ./Docer_Front
+    container_name: backend_milton
+    depends_on:
+      - db_milton   
+      
+    environment:
+      DB_HOST: db_milton
+      DB_USER: postgrest
+      DB_PASSWORD: postgres
+      DB_NAME: Milton_Vazquez
+    ports:
+      - "5000:5000"
+
+  # Frontend
+  frontend_milton:
+    build: ./Docer_Back
+    container_name: frontend_milton
+    depends_on:
+      - backend_milton
+    ports:
+      - "3000:80"
+    volumes:
+      - ./Docer_Back:/usr/share/nginx/html
+
+volumes:
+  db_data:
