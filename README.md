@@ -48,7 +48,7 @@ git clone https://github.com/Miltonvaz/Docker-compose.git
 cd Docker-compose
 
 Construye y levanta todos los servicios (en background):
-docker compose up --build -d
+docker-compose up --build
 
 Verifica que los contenedores estén corriendo:
 docker compose ps
