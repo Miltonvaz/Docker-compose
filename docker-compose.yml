@@ -17,7 +17,7 @@ services:
 
   # Backend
   backend_milton:
-    build: ./Docer_Front
+    build: ./Back
     container_name: backend_milton
     depends_on:
       - db_milton   
@@ -32,14 +32,14 @@ services:
 
   # Frontend
   frontend_milton:
-    build: ./Docer_Back
+    build: ./Front
     container_name: frontend_milton
     depends_on:
       - backend_milton
     ports:
       - "3000:80"
     volumes:
-      - ./Docer_Back:/usr/share/nginx/html
+      - ./Back:/usr/share/nginx/html
 
 volumes:
   db_data:
