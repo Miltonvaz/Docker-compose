@@ -46,3 +46,9 @@ El archivo `docker-compose.yml` define los tres servicios principales:
 ```bash
 git clone https://github.com/Miltonvaz/Docker-compose.git
 cd Docker-compose
+
+Construye y levanta todos los servicios (en background):
+docker compose up --build -d
+
+Verifica que los contenedores estén corriendo:
+docker compose ps
