@@ -1,7 +1,6 @@
 version: "3.9"
 
 services:
-  # Base de datos
   db_milton:
     image: postgres:16
     container_name: db_milton
@@ -14,14 +13,18 @@ services:
       - ./milton_vazquez.sql:/docker-entrypoint-initdb.d/milton_vazquez.sql
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgrest"]
+      interval: 2s
+      timeout: 5s
+      retries: 10
 
-  # Backend
   backend_milton:
-    build: ./Docer_Front
+    build: ./Back
     container_name: backend_milton
     depends_on:
-      - db_milton   
-      
+      db_milton:
+        condition: service_healthy
     environment:
       DB_HOST: db_milton
       DB_USER: postgrest
@@ -30,16 +33,15 @@ services:
     ports:
       - "5000:5000"
 
-  # Frontend
   frontend_milton:
-    build: ./Docer_Back
+    build: ./Front
     container_name: frontend_milton
     depends_on:
       - backend_milton
     ports:
       - "3000:80"
     volumes:
-      - ./Docer_Back:/usr/share/nginx/html
+      - ./Front:/usr/local/apache2/htdocs/
 
 volumes:
   db_data:
