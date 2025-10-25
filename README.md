@@ -53,4 +53,4 @@ docker-compose up --build -d
 Verifica que los contenedores estén corriendo:
 docker compose ps
 
-Y se tendra que modficar el main.js de la carpeta de front por la ip de la instancia, ya que como no es estatica habra errores de conexión con el backend.
+Y se tendra que modficar el main.js de la carpeta de front por la ip de la instancia, ya que como no es estatica habra errores de conexión con el backend. Y cconfigurar el config.json con la nueva Ip de la instancia
