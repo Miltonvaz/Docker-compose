@@ -46,3 +46,11 @@ El archivo `docker-compose.yml` define los tres servicios principales:
 ```bash
 git clone https://github.com/Miltonvaz/Docker-compose.git
 cd Docker-compose
+
+Construye y levanta todos los servicios (en background):
+docker-compose up --build -d
+
+Verifica que los contenedores estén corriendo:
+docker compose ps
+
+Y se tendra que modficar el main.js de la carpeta de front por la ip de la instancia, ya que como no es estatica habra errores de conexión con el backend. Y cconfigurar el config.json con la nueva Ip de la instancia
